@@ -30,8 +30,8 @@ namespace RestaurantPAOOWPF
             TabItem tabItem = new TabItem();
             tabItem.Header = tabName;
             ScrollViewer scrollViewer = new ScrollViewer();
-            WrapPanel stackPanel = new WrapPanel();
-            scrollViewer.Content = stackPanel;
+            WrapPanel wrapPanel = new WrapPanel();
+            scrollViewer.Content = wrapPanel;
 
             foreach (string buttonItem in buttonItems)
             {
@@ -44,7 +44,7 @@ namespace RestaurantPAOOWPF
                 button.Height = 100;
                 button.Click += button_Click;
 
-                stackPanel.Children.Add(button);
+                wrapPanel.Children.Add(button);
             }
             tabItem.Content = scrollViewer;
 
