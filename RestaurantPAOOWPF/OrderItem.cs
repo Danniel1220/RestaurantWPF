@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace RestaurantPAOOWPF
 {
-    internal class Order
+    internal class OrderItem
     {
         public string name { get; set; }
         public int amount { get; set; }
         public float price { get; set; }
 
-        public Order(string name, int amount, float price)
+        public OrderItem(string name, int amount, float price)
         {
             this.name = name;
             this.amount = amount;
@@ -21,7 +21,7 @@ namespace RestaurantPAOOWPF
 
         public override string ToString() 
         { 
-            return name + " " + amount + " " + price;
+            return name + " | " + " Amount: " + amount + " | " + "Price: " + price;
         }
     }
 }

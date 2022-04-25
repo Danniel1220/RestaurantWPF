@@ -9,22 +9,22 @@ namespace RestaurantPAOOWPF
 {
     internal class OrderManager
     {
-        List<List<Order>> orderItems;
+        List<List<OrderItem>> orderItems;
         ListBox orderListBox;
 
-        public OrderManager(List<List<Order>> orderItems, ListBox orderListBox)
+        public OrderManager(List<List<OrderItem>> orderItems, ListBox orderListBox)
         {
             this.orderItems = orderItems;
             this.orderListBox = orderListBox;
         }
 
-        public void setItemsInList(int index)
+        public void refreshItemsInOrderList(int index)
         {
             orderListBox.Items.Clear();
 
-            List<Order> selectedOrderList = orderItems.ElementAt(index);
+            List<OrderItem> selectedOrderList = orderItems.ElementAt(index);
 
-            foreach (Order item in selectedOrderList)
+            foreach (OrderItem item in selectedOrderList)
             {
                 orderListBox.Items.Add(item.ToString());
             }
@@ -32,8 +32,33 @@ namespace RestaurantPAOOWPF
 
         public void addItemToOrder(int index, string itemToAdd)
         {
-            orderItems[index].Add(new Order(itemToAdd, 0, 0));
-            setItemsInList(index);
+            if (!isItemAlreadyInOrder(index, new OrderItem(itemToAdd, 0, 0)))
+            {
+                orderItems[index].Add(new OrderItem(itemToAdd, 0, 0));
+            }
+            else
+            {
+                List<OrderItem> order = orderItems[index];
+                foreach (OrderItem item in order)
+                {
+                    if (item.name == itemToAdd)
+                    {
+                        item.amount++;
+                    }
+                }
+            }
+
+            refreshItemsInOrderList(index);
+        }
+
+        public bool isItemAlreadyInOrder(int index, OrderItem orderItem)
+        {
+            List<OrderItem> order = orderItems[index];
+            foreach (OrderItem item in order)
+            {
+                if (item.name == orderItem.name) return true;
+            }
+            return false;
         }
     }
 }
