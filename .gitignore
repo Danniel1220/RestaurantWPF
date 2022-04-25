@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+!RestaurantPAOOWPF/bin/Debug/net6.0-windows/Resources/*
