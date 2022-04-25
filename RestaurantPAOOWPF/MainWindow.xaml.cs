@@ -85,6 +85,8 @@ namespace RestaurantPAOOWPF
 
                     IOManager.printReceipt(orderInfo);
                     orderManager.clearOrder(selectedIndex);
+
+                    statusLabel.Content = "Order Finished. Receipt created...";
                     
                     break;
                 case "deleteOrderItemButton":

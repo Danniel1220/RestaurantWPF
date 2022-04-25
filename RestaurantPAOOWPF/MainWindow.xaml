@@ -20,6 +20,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
@@ -30,5 +31,7 @@
         <ListBox x:Name="orderListPanel" Grid.Column="1" Grid.Row="3" d:ItemsSource="{d:SampleData ItemCount=20}"/>
         
         <ScrollViewer x:Name="buttonsTabPanel" Grid.Column="3" Grid.Row="3"/>
+
+        <Label x:Name="statusLabel" Grid.Column="1" Grid.ColumnSpan="2" Content="Status bar" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="4" VerticalAlignment="Center"/>
     </Grid>
 </Window>
