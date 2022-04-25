@@ -62,5 +62,11 @@ namespace RestaurantPAOOWPF
             }
             return false;
         }
+
+        public void clearOrder(int index)
+        {
+            orderItems[index].Clear();
+            refreshItemsInOrderList(index);
+        }
     }
 }

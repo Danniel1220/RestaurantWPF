@@ -84,6 +84,7 @@ namespace RestaurantPAOOWPF
                     Trace.WriteLine(orderInfo);
 
                     IOManager.printReceipt(orderInfo);
+                    orderManager.clearOrder(selectedIndex);
                     
                     break;
                 case "deleteOrderItemButton":
