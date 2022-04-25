@@ -24,9 +24,10 @@ namespace RestaurantPAOOWPF
 
         TabPanel tabPanel;
         ListPanel listPanel;
+        ButtonsPanel buttonsPanel;
         OrderManager orderManager;
 
-        List<List<Order>> orderItems = new List<List<Order>>();
+        List<List<OrderItem>> ordersList = new List<List<OrderItem>>();
 
         public MainWindow()
         {
@@ -37,12 +38,12 @@ namespace RestaurantPAOOWPF
 
         public void initialize()
         {
-            tabPanel = new TabPanel(TABS_FILE_NAME_PATH, itemsTabPanel, Button_Click);
-            listPanel = new ListPanel(NUMBER_OF_TABLES, itemsListPanel, orderItems);
-            orderManager = new OrderManager(orderItems, orderListPanel);
+            tabPanel = new TabPanel(TABS_FILE_NAME_PATH, itemsTabPanel, Tab_Panel_Button_Click);
+            listPanel = new ListPanel(NUMBER_OF_TABLES, itemsListPanel, ordersList);
+            buttonsPanel = new ButtonsPanel(buttonsTabPanel, Button_Panel_Button_Click);
+            orderManager = new OrderManager(ordersList, orderListPanel);
 
             itemsListPanel.SelectedIndex = 0;
-
         }
 
         private void itemsListPanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,15 +51,44 @@ namespace RestaurantPAOOWPF
             ListBox list = (ListBox)sender;
             Trace.WriteLine(list.SelectedIndex);
 
-            orderManager.setItemsInList(list.SelectedIndex);
+            orderManager.refreshItemsInOrderList(list.SelectedIndex);
         }
 
-        public void Button_Click(object sender, RoutedEventArgs e)
+        public void Tab_Panel_Button_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
             Trace.WriteLine(b.Name);
 
             orderManager.addItemToOrder(itemsListPanel.SelectedIndex, b.Content.ToString());
+        }
+
+        public void Button_Panel_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+            Trace.WriteLine(b.Name);
+
+            switch (b.Name)
+            {
+                case "newOrderButton":
+                    break;
+                case "finishOrderButton":
+                    int selectedIndex = itemsListPanel.SelectedIndex;
+                    List<OrderItem> orderItems = ordersList[selectedIndex];
+                    string orderInfo = "";
+
+                    foreach (OrderItem item in orderItems)
+                    {
+                        orderInfo = orderInfo + item.ToString() + "\n";
+                    }
+
+                    Trace.WriteLine(orderInfo);
+                    
+                    break;
+                case "deleteOrderItemButton":
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
