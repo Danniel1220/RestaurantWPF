@@ -28,5 +28,7 @@
         <TabControl x:Name="itemsTabPanel" Grid.Column="3" Grid.Row="1"/>
 
         <ListBox x:Name="orderListPanel" Grid.Column="1" Grid.Row="3" d:ItemsSource="{d:SampleData ItemCount=20}"/>
+        
+        <ScrollViewer x:Name="buttonsTabPanel" Grid.Column="3" Grid.Row="3"/>
     </Grid>
 </Window>
