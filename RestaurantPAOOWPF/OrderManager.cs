@@ -34,7 +34,9 @@ namespace RestaurantPAOOWPF
         {
             if (!isItemAlreadyInOrder(index, new OrderItem(itemToAdd, 0, 0)))
             {
-                orderItems[index].Add(new OrderItem(itemToAdd, 0, 0));
+
+
+                orderItems[index].Add(new OrderItem(itemToAdd, 1, 0));
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -15,5 +16,15 @@ namespace RestaurantPAOOWPF
 		{
 			return File.ReadAllLines(path);
 		}
+
+		public static async void printReceipt(string receiptString)
+        {
+			string finalReceiptString = "# BON FISCAL \n\n";
+			finalReceiptString += receiptString;
+
+			string receiptFileName = "Bonuri/BonFiscal " + DateTime.Now.ToString("yyyy-dd-M HH-mm-ss") + ".txt";
+
+			await File.WriteAllTextAsync(receiptFileName, finalReceiptString);
+        }
 	}
 }
