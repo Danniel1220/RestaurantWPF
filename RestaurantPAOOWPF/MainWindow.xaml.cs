@@ -74,19 +74,29 @@ namespace RestaurantPAOOWPF
                 case "finishOrderButton":
                     int selectedIndex = itemsListPanel.SelectedIndex;
                     List<OrderItem> orderItems = ordersList[selectedIndex];
-                    string orderInfo = "";
 
-                    foreach (OrderItem item in orderItems)
+                    if(orderItems.Count > 0)
                     {
-                        orderInfo = orderInfo + item.ToString() + "\n";
+                        string orderInfo = "";
+
+                        foreach (OrderItem item in orderItems)
+                        {
+                            orderInfo = orderInfo + item.ToString() + "\n";
+                        }
+
+                        Trace.WriteLine(orderInfo);
+
+                        IOManager.printReceipt(orderInfo);
+                        orderManager.clearOrder(selectedIndex);
+
+                        statusLabel.Content = "Order Finished. Receipt created...";
+                    }
+                    else
+                    {
+                        statusLabel.Content = "Cannot finish an empty order...";
                     }
 
-                    Trace.WriteLine(orderInfo);
-
-                    IOManager.printReceipt(orderInfo);
-                    orderManager.clearOrder(selectedIndex);
-
-                    statusLabel.Content = "Order Finished. Receipt created...";
+                    
                     
                     break;
                 case "deleteOrderItemButton":
