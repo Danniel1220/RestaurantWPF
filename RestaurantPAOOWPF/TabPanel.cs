@@ -14,6 +14,8 @@ namespace RestaurantPAOOWPF
         TextBlock orderTextBlock;
         RoutedEventHandler button_Click;
 
+        public List<OrderItem> allItems = new List<OrderItem>();
+
         public TabPanel(string tabsPath, TabControl listBox, RoutedEventHandler button_Click)
         {
             this.orderTextBlock = orderTextBlock;
@@ -37,12 +39,19 @@ namespace RestaurantPAOOWPF
             {
                 Button button = new Button();
                 string btnName = buttonItem.Replace(" ", "");
+                string price = btnName.Substring(btnName.LastIndexOf('-') + 1);
+                btnName = btnName.Substring(0, btnName.LastIndexOf("-"));
                 button.Name = btnName + "Btn";
-                button.Content = buttonItem;
+                button.Content = btnName;
                 button.Margin = new Thickness(4, 4, 4, 4);
                 button.Width = 100;
                 button.Height = 100;
                 button.Click += button_Click;
+
+                Trace.WriteLine(btnName + " " + price);
+
+                OrderItem item = new OrderItem(btnName, 1, float.Parse(price));
+                allItems.Add(item);
 
                 wrapPanel.Children.Add(button);
             }
