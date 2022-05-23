@@ -11,11 +11,13 @@ namespace RestaurantPAOOWPF
     {
         List<List<OrderItem>> orderItems;
         ListBox orderListBox;
+        List<OrderItem> allItems;
 
-        public OrderManager(List<List<OrderItem>> orderItems, ListBox orderListBox)
+        public OrderManager(List<List<OrderItem>> orderItems, ListBox orderListBox, List<OrderItem> allItems)
         {
             this.orderItems = orderItems;
             this.orderListBox = orderListBox;
+            this.allItems = allItems;
         }
 
         public void refreshItemsInOrderList(int index)
@@ -32,11 +34,16 @@ namespace RestaurantPAOOWPF
 
         public void addItemToOrder(int index, string itemToAdd)
         {
-            if (!isItemAlreadyInOrder(index, new OrderItem(itemToAdd, 0, 0)))
+            OrderItem itemObjectToAdd = null;
+
+            foreach (OrderItem item in allItems)
             {
+                if (item.name == itemToAdd) itemObjectToAdd = item;
+            }
 
-
-                orderItems[index].Add(new OrderItem(itemToAdd, 1, 0));
+            if (!isItemAlreadyInOrder(index, itemObjectToAdd))
+            {
+                orderItems[index].Add(new OrderItem(itemToAdd, 1, itemObjectToAdd.price));
             }
             else
             {
@@ -46,6 +53,7 @@ namespace RestaurantPAOOWPF
                     if (item.name == itemToAdd)
                     {
                         item.amount++;
+                        item.price += itemObjectToAdd.price;
                     }
                 }
             }

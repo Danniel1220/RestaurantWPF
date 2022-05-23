@@ -41,7 +41,7 @@ namespace RestaurantPAOOWPF
             tabPanel = new TabPanel(TABS_FILE_NAME_PATH, itemsTabPanel, Tab_Panel_Button_Click);
             listPanel = new ListPanel(NUMBER_OF_TABLES, itemsListPanel, ordersList);
             buttonsPanel = new ButtonsPanel(buttonsTabPanel, Button_Panel_Button_Click);
-            orderManager = new OrderManager(ordersList, orderListPanel);
+            orderManager = new OrderManager(ordersList, orderListPanel, tabPanel.allItems);
 
             itemsListPanel.SelectedIndex = 0;
         }
@@ -69,17 +69,19 @@ namespace RestaurantPAOOWPF
 
             switch (b.Name)
             {
+                
+
                 case "newOrderButton":
                     break;
                 case "finishOrderButton":
-                    int selectedIndex = itemsListPanel.SelectedIndex;
-                    List<OrderItem> orderItems = ordersList[selectedIndex];
+                    int selectedIndexFinish = itemsListPanel.SelectedIndex;
+                    List<OrderItem> orderItemsFinish = ordersList[selectedIndexFinish];
 
-                    if(orderItems.Count > 0)
+                    if(orderItemsFinish.Count > 0)
                     {
                         string orderInfo = "";
 
-                        foreach (OrderItem item in orderItems)
+                        foreach (OrderItem item in orderItemsFinish)
                         {
                             orderInfo = orderInfo + item.ToString() + "\n";
                         }
@@ -87,7 +89,7 @@ namespace RestaurantPAOOWPF
                         Trace.WriteLine(orderInfo);
 
                         IOManager.printReceipt(orderInfo);
-                        orderManager.clearOrder(selectedIndex);
+                        orderManager.clearOrder(selectedIndexFinish);
 
                         statusLabel.Content = "Order Finished. Receipt created...";
                     }
@@ -95,11 +97,38 @@ namespace RestaurantPAOOWPF
                     {
                         statusLabel.Content = "Cannot finish an empty order...";
                     }
-
-                    
-                    
                     break;
                 case "deleteOrderItemButton":
+                    int selectedIndexDelete = orderListPanel.SelectedIndex;
+
+                    if (selectedIndexDelete != -1)
+                    {
+                        Trace.WriteLine(selectedIndexDelete);
+                        List<OrderItem> orderItemsDelete = ordersList[itemsListPanel.SelectedIndex];
+                        if (orderItemsDelete.Count > 0)
+                        {
+                            Trace.WriteLine(selectedIndexDelete);
+                            if (orderItemsDelete.ElementAt(selectedIndexDelete).amount == 1)
+                            {
+                                orderItemsDelete.RemoveAt(selectedIndexDelete);
+                            }
+                            else
+                            {
+                                orderItemsDelete.ElementAt(selectedIndexDelete).amount--;
+                                orderItemsDelete.ElementAt(selectedIndexDelete).price -= (orderItemsDelete.ElementAt(selectedIndexDelete).price / (orderItemsDelete.ElementAt(selectedIndexDelete).amount + 1));
+                            }
+                            orderManager.refreshItemsInOrderList(itemsListPanel.SelectedIndex);
+                        }
+                        else
+                        {
+                            Trace.WriteLine("reeee-er");
+                        }
+                        
+                    }
+                    else
+                    {
+                        Trace.WriteLine("reeee");
+                    }
                     break;
                 default:
                     break;
