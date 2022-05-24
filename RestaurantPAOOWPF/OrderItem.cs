@@ -21,7 +21,12 @@ namespace RestaurantPAOOWPF
 
         public override string ToString() 
         { 
-            return name + " | " + " Amount: " + amount + " | " + "Price: " + price;
+            return name + " | Amount: " + amount + " | Price: " + price;
+        }
+
+        public string ToStringReceipt()
+        {
+            return name + "," + amount + "," + price;
         }
     }
 }

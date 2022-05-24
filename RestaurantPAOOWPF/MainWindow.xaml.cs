@@ -69,10 +69,6 @@ namespace RestaurantPAOOWPF
 
             switch (b.Name)
             {
-                
-
-                case "newOrderButton":
-                    break;
                 case "finishOrderButton":
                     int selectedIndexFinish = itemsListPanel.SelectedIndex;
                     List<OrderItem> orderItemsFinish = ordersList[selectedIndexFinish];
@@ -83,7 +79,7 @@ namespace RestaurantPAOOWPF
 
                         foreach (OrderItem item in orderItemsFinish)
                         {
-                            orderInfo = orderInfo + item.ToString() + "\n";
+                            orderInfo = orderInfo + item.ToStringReceipt() + "\n";
                         }
 
                         Trace.WriteLine(orderInfo);

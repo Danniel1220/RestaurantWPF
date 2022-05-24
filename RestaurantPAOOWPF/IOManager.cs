@@ -19,10 +19,10 @@ namespace RestaurantPAOOWPF
 
 		public static async void printReceipt(string receiptString)
         {
-			string finalReceiptString = "# BON FISCAL \n\n";
+			string finalReceiptString = "Nume,Cantitate,Pret\n";
 			finalReceiptString += receiptString;
 
-			string receiptFileName = "Bonuri/BonFiscal " + DateTime.Now.ToString("yyyy-dd-M HH-mm-ss") + ".txt";
+			string receiptFileName = "Bonuri/BonFiscal " + DateTime.Now.ToString("yyyy-dd-M HH-mm-ss") + ".csv";
 
 			await File.WriteAllTextAsync(receiptFileName, finalReceiptString);
         }
