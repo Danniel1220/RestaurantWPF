@@ -20,15 +20,7 @@ namespace RestaurantPAOOWPF
 
             WrapPanel wrapPanel = new WrapPanel();
 
-            scrollViewer.Content = wrapPanel;
-
-            Button newOrderButton = new Button();
-            newOrderButton.Name = "newOrderButton";
-            newOrderButton.Content = "New Order";
-            newOrderButton.Margin = new Thickness(4, 4, 4, 4);
-            newOrderButton.Width = 100;
-            newOrderButton.Height = 100;
-            newOrderButton.Click += button_Click;
+            scrollViewer.Content = wrapPanel;          
 
             Button finishOrderButton = new Button();
             finishOrderButton.Name = "finishOrderButton";
@@ -46,7 +38,6 @@ namespace RestaurantPAOOWPF
             deleteOrderItemButton.Height = 100;
             deleteOrderItemButton.Click += button_Click;
 
-            wrapPanel.Children.Add(newOrderButton);
             wrapPanel.Children.Add(finishOrderButton);
             wrapPanel.Children.Add(deleteOrderItemButton);
 
